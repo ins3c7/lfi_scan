@@ -1,4 +1,6 @@
 # lfi_scan
-# LFI SCAN VULN
+> Procura a vulnerabilidade LFI em uma busca por lista de dorks no bing.com.
+> Script simples para uma futura implementação em um IRC Bot.
 
-by ins3ct / irc.priv8.jp - #nosafe
+
+
