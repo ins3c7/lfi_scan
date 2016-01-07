@@ -27,7 +27,7 @@ def Bing(dork):
 		for a in soup.findAll('a'):
 			a_found = a.get('href')
 			if a_found:
-				if a_found.find('http') != -1 and a_found.find('microsoft') == -1 and a_found.find('msn') == -1:
+				if a_found.find('http') != -1 and a_found.find('microsoft') == -1 and a_found.find('msn') == -1 and a_found.find('=') != -1:
 					a_found = a_found.split('=')[0] + '='
 					print a_found
 					if a_found not in urls:
